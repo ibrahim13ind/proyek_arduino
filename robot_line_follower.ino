@@ -1,14 +1,14 @@
-int mr1=10;  //motor right 1
-int mr2=9;  //motor right 2
-int ml1=5;  //motor left 1
-int ml2=4; //motor left 2
-int sr=13;   //sensor right
-int sl=12;   //sensor left
-int svr=0;
-int svl=0;
+int dinamo_kanan1=10;  //kaki 1 dinamo kanan  1 
+int dinamo_kanan2=9;  //kaki 2 dinamo kanan 2 
+int dinamo_kiri1=5;  //kaki 1 dinamo kiri 
+int dinamo_kiri2=4; //kaki 2 dinamo kiri 
+int sensor_kanan=13;   //sensor kanan digital 
+int sensor_kiri=12;   //sensor kiri digital 
+int nilai_sensor_kanan=0; 
+int nilai_sensor_kiri=0; 
 int led=13;
-int enr=11; 
-int  enl=3;
+int kecepatan_kanan=11; 
+int kecepatan_kiri=3; 
 
 int vspeed=100;    
 int tspeed=255;
@@ -16,87 +16,87 @@ int tdelay=20;
 
 void  setup()
 {
- pinMode(mr1,OUTPUT);
- pinMode(mr2,OUTPUT);
- pinMode(ml1,OUTPUT);
-  pinMode(ml2,OUTPUT);
+ pinMode(dinamo_kanan1,OUTPUT);
+ pinMode(dinamo_kanan2,OUTPUT);
+ pinMode(dinamo_kiri1,OUTPUT);
+  pinMode(dinamo_kiri2,OUTPUT);
  pinMode(led,OUTPUT);
- pinMode(sr,INPUT);
- pinMode(sl,INPUT);
+ pinMode(sensor_kanan,INPUT);
+ pinMode(sensor_kiri,INPUT);
   
  delay(5000);
 }
 
 void loop()
 {
- svr=digitalRead(sr);
- svl=digitalRead(sl);
+ nilai_sensor_kanan=digitalRead(sensor_kanan);
+ nilai_sensor_kiri=digitalRead(sensor_kiri);
   
-  if(svl==LOW && svr==LOW)
+  if(nilai_sensor_kiri==LOW && nilai_sensor_kanan==LOW)
   {
-  forward(); //maju
+   maju(); //maju forward
   }
 
-  if(svl==HIGH  && svr==LOW)
+  if(nilai_sensor_kiri==HIGH  && nilai_sensor_kanan==LOW)
   {
-  left(); //belok kiri
+  belok_kiri(); //belok kiri left
   }
  
-  if(svl==LOW && svr==HIGH)
+  if(nilai_sensor_kiri==LOW && nilai_sensor_kanan==HIGH)
   { 
-  right(); //belok kanan
+  belok_kanan(); //belok kanan right
   }
   
-  if(svl==HIGH && svr==HIGH)
+  if(nilai_sensor_kiri==HIGH && nilai_sensor_kanan==HIGH)
   {
-  stop(); //berhenti
+  berhenti(); //berhenti stop
   }
 }
 
-void forward()
+void maju()//fungsi maju
  {
-  digitalWrite(mr1,HIGH);
-  digitalWrite(mr2,LOW);
-  digitalWrite(ml1,HIGH);
-  digitalWrite(ml2,LOW);
-  analogWrite (enr,vspeed);
-  analogWrite (enl,vspeed);
+  digitalWrite(dinamo_kanan1,HIGH);
+  digitalWrite(dinamo_kanan2,LOW);
+  digitalWrite(dinamo_kiri1,HIGH);
+  digitalWrite(dinamo_kiri2,LOW);
+  analogWrite (kecepatan_kanan,vspeed);
+  analogWrite (kecepatan_kiri,vspeed);
  } 
 
-void backward()
+void mundur()//fungsi mundur
   {
-  digitalWrite(mr1,LOW);
-  digitalWrite(mr2,HIGH);
-  digitalWrite(ml1,LOW);
-  digitalWrite(ml2,HIGH);
-  analogWrite (enr,vspeed);
-  analogWrite (enl,vspeed);
+  digitalWrite(dinamo_kanan1,LOW);
+  digitalWrite(dinamo_kanan2,HIGH);
+  digitalWrite(dinamo_kiri1,LOW);
+  digitalWrite(dinamo_kiri2,HIGH);
+  analogWrite (kecepatan_kanan,vspeed);
+  analogWrite (kecepatan_kiri,vspeed);
   }
 
-void right()
+void belok_kanan()//fungsi belok kanan
  {
-  digitalWrite(mr1,LOW);
-  digitalWrite(mr2,HIGH);
-  digitalWrite(ml1,HIGH);
-  digitalWrite(ml2,LOW);
-  analogWrite (enr,tspeed);
-  analogWrite (enl,tspeed);
+  digitalWrite(dinamo_kanan1,LOW);
+  digitalWrite(dinamo_kanan2,HIGH);
+  digitalWrite(dinamo_kiri1,HIGH);
+  digitalWrite(dinamo_kiri2,LOW);
+  analogWrite (kecepatan_kanan,tspeed);
+  analogWrite (kecepatan_kiri,tspeed);
   delay(tdelay);
  } 
 
-void left()
+void belok_kiri()//fungsi belok kiri
  {
-  digitalWrite(mr1,HIGH);
-  digitalWrite(mr2,LOW);
-  digitalWrite(ml1,LOW);
-  digitalWrite(ml2,HIGH);
-  analogWrite (enr,tspeed);
-  analogWrite (enl,tspeed);
+  digitalWrite(dinamo_kanan1,HIGH);
+  digitalWrite(dinamo_kanan2,LOW);
+  digitalWrite(dinamo_kiri1,LOW);
+  digitalWrite(dinamo_kiri2,HIGH);
+  analogWrite (kecepatan_kanan,tspeed);
+  analogWrite (kecepatan_kiri,tspeed);
   delay(tdelay);
 }  
 
-void stop()
+void berhenti()//fungsi berhenti
  {
-  analogWrite (enr,0);
-  analogWrite  (enl,0);
+  analogWrite (kecepatan_kanan,0);
+  analogWrite  (kecepatan_kiri,0);
  }
